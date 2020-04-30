@@ -31,22 +31,6 @@ export class AppComponent implements OnInit
 
   }
 
-  //Listening to key events
-  @HostListener('window:keydown', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    console.log(event);
-  
-    var key = event.keyCode;
-    console.log(key);
-    
-    switch(key)
-     {
-      case 40: this.direction=0; break;
-      case 39: this.direction=2; break;
-      case 37: this.direction=1; break;
-      case 38: this.direction=3; break;
-     }
-  }
 
   title = 'ClassicSnake-Angular';
   isRunning=true;
@@ -67,6 +51,59 @@ export class AppComponent implements OnInit
   
   //apples:Apple[]=[];
   apples: Array<Apple> = new Array(this.numOfApples);
+
+  //Listening to key events
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
+  
+    var key = event.keyCode;
+    console.log(key);
+    
+    switch(key)
+     {
+      case 40: this.direction=0; break; //down
+      case 39: this.direction=2; break; //right
+      case 37: this.direction=1; break; //left
+      case 38: this.direction=3; break; //up
+     }
+  }
+
+    //Listening to click events
+    @HostListener('window:click', ['$event'])
+    clickEvent(event: MouseEvent) {
+      console.log(event);
+    
+      var positionX = event.clientX;
+      var positionY = event.clientY;
+      console.log("positionX:"+positionX+",mySnake[0].x:"+this.mySnake[0].x*this.Scale);
+      console.log("positionY:"+positionY+",mySnake[0].y:"+this.mySnake[0].y*this.Scale);
+      
+      if(Math.abs(positionX-this.mySnake[0].x*this.Scale)>Math.abs(positionY-this.mySnake[0].y*this.Scale))
+      {
+      if((positionX>this.mySnake[0].x*this.Scale))
+        {
+          this.direction=2;  //right
+        }
+       else if(positionX<this.mySnake[0].x*this.Scale)
+        {
+          this.direction=1; //left
+        }
+      }
+      else
+      {
+       if(positionY<this.mySnake[0].y*this.Scale)
+        {
+          this.direction=3; //up
+        }
+       else if(positionY>this.mySnake[0].y*this.Scale)
+        {
+          this.direction=0; //down
+        }
+      }
+
+      }
+    
   
 
   animate(graphicsContext:CanvasRenderingContext2D): void 
@@ -183,7 +220,7 @@ export class AppComponent implements OnInit
       {
         this.numbOfChains++;
         this.mySnake[this.numbOfChains-1]=new SnakeChain();
-        
+
         this.apples[i].newRandomLocation();
         this.apples[i].drawApple(gcntxt);
       }
