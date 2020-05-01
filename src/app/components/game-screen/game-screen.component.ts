@@ -231,6 +231,14 @@ export class GameScreenComponent implements OnInit
         this.gameservice.incrementScore();
       }
     }
+    //Check if Head Element is reaching the Border
+    //If so - Changing direction to slide along the Border (Counterclockwise)
+    if((this.direction==2)&&(this.mySnake[0].x>this.N-2)) this.direction=3 //up
+    if(this.mySnake[0].y<1) this.direction=1 //left
+    if(this.mySnake[0].x<1) this.direction=0 //down
+    if((this.direction==0)&&(this.mySnake[0].y>this.M-2)) {this.direction=2 } //right
+    
+
   }
 
   drawSnake()
