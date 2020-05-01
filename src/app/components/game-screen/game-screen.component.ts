@@ -1,4 +1,5 @@
 import { Component,ViewChild, ElementRef,OnInit, HostListener } from '@angular/core';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-game-screen',
@@ -12,7 +13,9 @@ export class GameScreenComponent implements OnInit
   canvas: ElementRef<HTMLCanvasElement>;
 
   private ctx: CanvasRenderingContext2D;
-
+  
+  constructor(private gameservice:GameService) { }
+  
   ngOnInit(): void 
   {
     this.initializeSnake();
@@ -223,6 +226,9 @@ export class GameScreenComponent implements OnInit
 
         this.apples[i].newRandomLocation();
         this.apples[i].drawApple(gcntxt);
+
+        //also call GameService to increment score
+        this.gameservice.incrementScore();
       }
     }
   }
