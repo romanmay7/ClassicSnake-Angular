@@ -209,7 +209,7 @@ export class GameScreenComponent implements OnInit
       this.mySnake[i].y=this.mySnake[i-1].y;
     }
     
-    //moving Head elements according the direction
+    //moving Head Element according the direction
     if(this.direction==0) this.mySnake[0].y+=1;
     if(this.direction==1) this.mySnake[0].x-=1;
     if(this.direction==2) this.mySnake[0].x+=1;
@@ -238,6 +238,19 @@ export class GameScreenComponent implements OnInit
     if(this.mySnake[0].x<1) this.direction=0 //down
     if((this.direction==0)&&(this.mySnake[0].y>this.M-2)) {this.direction=2 } //right
     
+    //Check if Head Element is intersects with one of other Elements
+    //If so -invoking GameOver() method on GameService
+    if(this.numbOfChains>5)
+    {
+      for(var i=1;i<this.numbOfChains;i++)
+      {
+         if ((this.mySnake[0].x==this.mySnake[i].x)&&(this.mySnake[0].y==this.mySnake[i].y)) 
+         
+         //this.stopAnimation();
+         this.gameservice.gameOver();
+         
+      }
+   }
 
   }
 

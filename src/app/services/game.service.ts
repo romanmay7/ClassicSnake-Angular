@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ export class GameService {
 
   gamescore:number=0;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   incrementScore()
   {
@@ -18,4 +19,13 @@ export class GameService {
   {
     this.gamescore=0;
   }
+
+  gameOver()
+  {
+    alert("Game Over,your Score is:"+this.gamescore)
+    this.resetScore();
+    this.router.navigate(["/"])
+    setTimeout(function(){ window.location.reload(); }, 1000);
+  }
+    
 }
