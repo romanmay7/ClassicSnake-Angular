@@ -65,10 +65,10 @@ export class GameScreenComponent implements OnInit
     
     switch(key)
      {
-      case 40: this.direction=0; break; //down
-      case 39: this.direction=2; break; //right
-      case 37: this.direction=1; break; //left
-      case 38: this.direction=3; break; //up
+      case 40: if(this.direction!=3) this.direction=0; break; //down
+      case 39: if(this.direction!=1)this.direction=2; break; //right
+      case 37: if(this.direction!=2)this.direction=1; break; //left
+      case 38: if(this.direction!=0)this.direction=3; break; //up
      }
   }
 
@@ -86,22 +86,22 @@ export class GameScreenComponent implements OnInit
       {
       if((positionX>this.mySnake[0].x*this.Scale))
         {
-          this.direction=2;  //right
+          if(this.direction!=1) this.direction=2;  //right
         }
        else if(positionX<this.mySnake[0].x*this.Scale)
         {
-          this.direction=1; //left
+          if(this.direction!=2) this.direction=1; //left
         }
       }
       else
       {
        if(positionY<this.mySnake[0].y*this.Scale)
         {
-          this.direction=3; //up
+          if(this.direction!=0) this.direction=3; //up
         }
        else if(positionY>this.mySnake[0].y*this.Scale)
         {
-          this.direction=0; //down
+          if(this.direction!=3) this.direction=0; //down
         }
       }
 

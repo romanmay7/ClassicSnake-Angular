@@ -25,7 +25,7 @@ export class GameService {
     alert("Game Over,your Score is:"+this.gamescore)
     this.resetScore();
     this.router.navigate(["/"])
-    setTimeout(function(){ window.location.reload(); }, 1000);
+    setTimeout(function(){ window.location.reload(); }, 500);
   }
     
 }
