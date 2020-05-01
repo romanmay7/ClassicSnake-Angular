@@ -3,10 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { GameScreenComponent } from './components/game-screen/game-screen.component';
+import { HighscoresComponent } from './components/highscores/highscores.component';
+import { TitleScreenComponent } from './components/title-screen/title-screen.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavBarComponent,
+    GameScreenComponent,
+    HighscoresComponent,
+    TitleScreenComponent
   ],
   imports: [
     BrowserModule,

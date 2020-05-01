@@ -1,0 +1,286 @@
+import { Component,ViewChild, ElementRef,OnInit, HostListener } from '@angular/core';
+
+@Component({
+  selector: 'app-game-screen',
+  templateUrl: './game-screen.component.html',
+  styleUrls: ['./game-screen.component.css']
+})
+export class GameScreenComponent implements OnInit 
+{
+  //In the component class, we can use the @ViewChild() decorator to inject a reference to the canvas.
+  @ViewChild('canvas', { static: true })
+  canvas: ElementRef<HTMLCanvasElement>;
+
+  private ctx: CanvasRenderingContext2D;
+
+  ngOnInit(): void 
+  {
+    this.initializeSnake();
+    //Once the component has initialized, we’ll have access to the Canvas DOM node, as well
+    //as its drawing context:
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillRect(0, 0, this.fieldWidth, this.fieldHeight);
+    this.drawField();
+    
+    this.initializeApples(this.ctx);
+
+    //const i=setInterval(()=>this.animate(this.ctx), 150);
+    requestAnimationFrame(()=>this.animate(this.ctx));
+
+  }
+
+
+  title = 'ClassicSnake-Angular';
+  isRunning=true;
+
+  N=32;
+  M=24;
+  Scale=25;
+  fieldWidth=this.Scale*this.N;
+  fieldHeight=this.Scale*this.M;
+
+  mySnake:SnakeChain[]=[];
+  //mySnake: Array<SnakeChain> = new Array();
+  direction=0;
+  numbOfChains=4;
+  numOfApples=10;
+  tailX;
+  tailY;
+  
+  //apples:Apple[]=[];
+  apples: Array<Apple> = new Array(this.numOfApples);
+
+  //Listening to key events
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
+  
+    var key = event.keyCode;
+    console.log(key);
+    
+    switch(key)
+     {
+      case 40: this.direction=0; break; //down
+      case 39: this.direction=2; break; //right
+      case 37: this.direction=1; break; //left
+      case 38: this.direction=3; break; //up
+     }
+  }
+
+    //Listening to click events
+    @HostListener('window:click', ['$event'])
+    clickEvent(event: MouseEvent) {
+      console.log(event);
+    
+      var positionX = event.clientX;
+      var positionY = event.clientY;
+      console.log("positionX:"+positionX+",mySnake[0].x:"+this.mySnake[0].x*this.Scale);
+      console.log("positionY:"+positionY+",mySnake[0].y:"+this.mySnake[0].y*this.Scale);
+      
+      if(Math.abs(positionX-this.mySnake[0].x*this.Scale)>Math.abs(positionY-this.mySnake[0].y*this.Scale))
+      {
+      if((positionX>this.mySnake[0].x*this.Scale))
+        {
+          this.direction=2;  //right
+        }
+       else if(positionX<this.mySnake[0].x*this.Scale)
+        {
+          this.direction=1; //left
+        }
+      }
+      else
+      {
+       if(positionY<this.mySnake[0].y*this.Scale)
+        {
+          this.direction=3; //up
+        }
+       else if(positionY>this.mySnake[0].y*this.Scale)
+        {
+          this.direction=0; //down
+        }
+      }
+
+      }
+    
+  
+
+  animate(graphicsContext:CanvasRenderingContext2D): void 
+  {
+    
+    let framesPerSecond = 5;
+
+     var timeout = setTimeout(()=>{
+                
+            this.drawSnake();
+            this.moveSnake(graphicsContext);
+            if(!this.isRunning){
+              clearInterval(timeout);
+            }
+            else{requestAnimationFrame(()=>(this.animate(graphicsContext)));}
+                    
+    
+        }, 1000 / framesPerSecond);
+
+        
+  }
+
+  stopAnimation()
+  {
+     this.isRunning=false;
+  }
+
+  startAnimation()
+  {
+     this.isRunning=true;
+     requestAnimationFrame(()=>this.animate(this.ctx));
+  }
+
+   drawLine(x1: number,y1: number,x2: number,y2: number)
+  {
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(x2, y2);
+    this.ctx.strokeStyle = "green";
+    this.ctx.stroke();
+  }
+
+   drawField()
+  {
+    for( var i=0;i<this.fieldWidth;i+=this.Scale)
+    {
+      
+       this.drawLine(i,0,i,this.fieldHeight);
+    }
+
+    for( var j=0;j<this.fieldHeight;j+=this.Scale)
+    {
+      
+       this.drawLine(0,j,this.fieldWidth,j);
+    }
+
+  }
+
+  initializeSnake()
+  {
+    this.mySnake[0]=new SnakeChain();
+    this.mySnake[0].x=10;
+    this.mySnake[0].y=10;
+    this.mySnake[1]=new SnakeChain();
+    this.mySnake[1].x=11
+    this.mySnake[1].y=10;
+    this.mySnake[2]=new SnakeChain();
+    this.mySnake[2].x=12
+    this.mySnake[2].y=10;
+    this.mySnake[3]=new SnakeChain();
+    this.mySnake[3].x=13
+    this.mySnake[3].y=10;
+
+  }
+
+  initializeApples(gcntxt:CanvasRenderingContext2D)
+  {
+    for(var i=0;i< this.numOfApples;i++)
+    {
+      this.apples[i]=new Apple();
+    }
+
+    this.apples.forEach((apple:Apple)=>
+    {
+      apple.newRandomLocation();
+      apple.drawApple(gcntxt);
+    });
+
+  }
+
+  moveSnake(gcntxt:CanvasRenderingContext2D)
+  {
+    //capturing tail coordinates
+     this.tailX=this.mySnake[this.numbOfChains-1].x
+     this.tailY=this.mySnake[this.numbOfChains-1].y
+
+    //moving elements
+    for(var i=this.numbOfChains-1;i>0;i--)
+    {
+      this.mySnake[i].x=this.mySnake[i-1].x;
+      this.mySnake[i].y=this.mySnake[i-1].y;
+    }
+    
+    //moving Head elements according the direction
+    if(this.direction==0) this.mySnake[0].y+=1;
+    if(this.direction==1) this.mySnake[0].x-=1;
+    if(this.direction==2) this.mySnake[0].x+=1;
+    if(this.direction==3) this.mySnake[0].y-=1;
+
+    //if our Head's element coordinates are equal to an Apple coordinates then
+    //increment number of chains in our Snake Array ,also let's put the eaten apple in the new location
+    for (var i=0;i<this.numOfApples;i++)
+    {
+      if((this.mySnake[0].x==this.apples[i].x)&&(this.mySnake[0].y==this.apples[i].y))
+      {
+        this.numbOfChains++;
+        this.mySnake[this.numbOfChains-1]=new SnakeChain();
+
+        this.apples[i].newRandomLocation();
+        this.apples[i].drawApple(gcntxt);
+      }
+    }
+  }
+
+  drawSnake()
+  {
+    for(var i=0;i<this.numbOfChains;i++)
+    {
+      this.ctx.fillStyle = 'blue';
+      
+      this.ctx.fillRect((this.mySnake[i].x)*this.Scale, (this.mySnake[i].y)*this.Scale,this.Scale-2, this.Scale-2)
+    }
+    this.removeTail();
+  }
+
+  removeTail()
+  {
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillRect((this.tailX)*this.Scale,(this.tailY)*this.Scale,this.Scale-1,this.Scale-1);
+  }
+
+}
+
+
+export class SnakeChain 
+{
+  x:number;
+  y:number;
+
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+  }
+}
+
+export class Apple
+{
+
+  x:number;
+  y:number;
+  Scale=25;
+
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+  }
+
+  newRandomLocation(){
+    this.x=Math.floor(Math.random() * 32); 
+    this.y=Math.floor(Math.random() * 24); 
+  }
+
+  drawApple(graphicContext:CanvasRenderingContext2D)
+  {
+    graphicContext.fillStyle = 'yellow';
+    console.log("Drawing apple at:"+this.x+","+this.y);
+    graphicContext.fillRect((this.x)*this.Scale, (this.y)*this.Scale,this.Scale-2, this.Scale-2)
+  }
+
+}
+
