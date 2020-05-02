@@ -7,6 +7,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { GameScreenComponent } from './components/game-screen/game-screen.component';
 import { HighscoresComponent } from './components/highscores/highscores.component';
 import { TitleScreenComponent } from './components/title-screen/title-screen.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TitleScreenComponent } from './components/title-screen/title-screen.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

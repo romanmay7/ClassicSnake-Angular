@@ -1,5 +1,6 @@
 import { Component,ViewChild, ElementRef,OnInit, HostListener } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-game-screen',
@@ -13,11 +14,50 @@ export class GameScreenComponent implements OnInit
   canvas: ElementRef<HTMLCanvasElement>;
 
   private ctx: CanvasRenderingContext2D;
+
+  title = 'ClassicSnake-Angular';
+  isRunning=true;
+
+  //Game Screen Dimensions
+  N:number;
+  M:number;
+  Scale:number;
+  fieldWidth:number;
+  fieldHeight:number;
+
+  mySnake:SnakeChain[]=[];
+  //mySnake: Array<SnakeChain> = new Array();
+  direction=0;
+  numbOfChains=4;
+  numOfApples=10;
+  tailX;
+  tailY;
   
-  constructor(private gameservice:GameService) { }
+  //apples:Apple[]=[];
+  apples: Array<Apple> = new Array(this.numOfApples);
+
+  
+  constructor(private gameservice:GameService,private deviceService: DeviceDetectorService) { }
   
   ngOnInit(): void 
   {
+  if(this.deviceService.isDesktop()||this.deviceService.isTablet()) {
+    this.N=32;
+    this.M=24;
+    this.Scale=25;
+    this.fieldWidth=this.Scale*this.N;
+    this.fieldHeight=this.Scale*this.M;
+  }
+
+  else if(this.deviceService.isMobile())
+  {
+    this.N=14;
+    this.M=24;
+    this.Scale=25;
+    this.fieldWidth=this.Scale*this.N;
+    this.fieldHeight=this.Scale*this.M;
+  }
+
     this.initializeSnake();
     //Once the component has initialized, we’ll have access to the Canvas DOM node, as well
     //as its drawing context:
@@ -34,26 +74,6 @@ export class GameScreenComponent implements OnInit
 
   }
 
-
-  title = 'ClassicSnake-Angular';
-  isRunning=true;
-
-  N=32;
-  M=24;
-  Scale=25;
-  fieldWidth=this.Scale*this.N;
-  fieldHeight=this.Scale*this.M;
-
-  mySnake:SnakeChain[]=[];
-  //mySnake: Array<SnakeChain> = new Array();
-  direction=0;
-  numbOfChains=4;
-  numOfApples=10;
-  tailX;
-  tailY;
-  
-  //apples:Apple[]=[];
-  apples: Array<Apple> = new Array(this.numOfApples);
 
   //Listening to key events
   @HostListener('window:keydown', ['$event'])
@@ -185,7 +205,7 @@ export class GameScreenComponent implements OnInit
   {
     for(var i=0;i< this.numOfApples;i++)
     {
-      this.apples[i]=new Apple();
+      this.apples[i]=new Apple(this.N,this.M);
     }
 
     this.apples.forEach((apple:Apple)=>
@@ -296,15 +316,19 @@ export class Apple
   x:number;
   y:number;
   Scale=25;
+  N:number;
+  M:number;
 
-  constructor() {
+  constructor(rows,columns) {
     this.x = 0;
     this.y = 0;
+    this.N=rows;
+    this.M=columns;
   }
 
   newRandomLocation(){
-    this.x=Math.floor(Math.random() * 32); 
-    this.y=Math.floor(Math.random() * 24); 
+    this.x=Math.floor(Math.random() * this.N); 
+    this.y=Math.floor(Math.random() * this.M); 
   }
 
   drawApple(graphicContext:CanvasRenderingContext2D)
