@@ -256,7 +256,12 @@ export class GameScreenComponent implements OnInit
 
   drawSnake()
   {
-    for(var i=0;i<this.numbOfChains;i++)
+    //Draw Head
+    this.ctx.fillStyle = 'violet';
+      
+    this.ctx.fillRect((this.mySnake[0].x)*this.Scale, (this.mySnake[0].y)*this.Scale,this.Scale-2, this.Scale-2)
+    //Draw Body
+    for(var i=1;i<this.numbOfChains;i++)
     {
       this.ctx.fillStyle = 'blue';
       
