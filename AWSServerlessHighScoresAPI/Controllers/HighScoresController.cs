@@ -24,6 +24,7 @@ namespace AWSServerlessHighScoresAPI.Controllers
         public  async Task<ActionResult<IEnumerable<GameRecord>>> GetHighScoresList()
         {
             var result = await _highscoresService.GetItemsFromDynamoDB();
+            result = result.OrderByDescending(t => t.Score).Take(10);//Top 10 Scores
 
             return Ok(result);
         }
