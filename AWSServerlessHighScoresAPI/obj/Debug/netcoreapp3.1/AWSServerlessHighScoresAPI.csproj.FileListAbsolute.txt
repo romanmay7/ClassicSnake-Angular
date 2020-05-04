@@ -194,7 +194,6 @@ C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScore
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.csprojAssemblyReference.cache
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\staticwebassets\AWSServerlessHighScoresAPI.StaticWebAssets.Manifest.cache
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\staticwebassets\AWSServerlessHighScoresAPI.StaticWebAssets.xml
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.MvcApplicationPartsAssemblyInfo.cache

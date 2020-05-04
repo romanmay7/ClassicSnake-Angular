@@ -28,12 +28,22 @@ namespace AWSServerlessHighScoresAPI
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            //services.AddMvc();
             services.AddControllers();
             services.AddSingleton<IHighScoresService, HighScoresService>();
 
             // Add S3 to the ASP.NET Core dependency injection framework.
-           // services.AddAWSService<Amazon.S3.IAmazonS3>();
+            // services.AddAWSService<Amazon.S3.IAmazonS3>();
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://my-chat-roomz-client.s3-website-eu-west-1.amazonaws.com", "http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -47,6 +57,8 @@ namespace AWSServerlessHighScoresAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

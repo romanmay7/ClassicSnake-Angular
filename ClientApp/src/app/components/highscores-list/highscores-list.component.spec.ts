@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HighscoresComponent } from './highscores.component';
+import { HighscoresListComponent } from './highscores-list.component';
 
-describe('HighscoresComponent', () => {
-  let component: HighscoresComponent;
-  let fixture: ComponentFixture<HighscoresComponent>;
+describe('HighscoresListComponent', () => {
+  let component: HighscoresListComponent;
+  let fixture: ComponentFixture<HighscoresListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HighscoresComponent ]
+      declarations: [ HighscoresListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HighscoresComponent);
+    fixture = TestBed.createComponent(HighscoresListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

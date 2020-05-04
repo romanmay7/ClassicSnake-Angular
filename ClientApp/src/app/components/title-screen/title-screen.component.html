@@ -1,5 +1,17 @@
-<img src="../../../assets/nokia-snake-15.jpg" height="auto" width="800" />
-<div>
-    <button type="button" class="btn btn-success" [routerLink]="['game']" style="margin:2%">New Game</button>
-    <button type="button" class="btn btn-success" [routerLink]="['highscores']" style="margin:2%">Highscores</button>
+<div class="container">
+ <div class="row">
+
+
+<div class="col"><img src="../../../assets/nokia-snake-15.jpg" height="auto" width="800" />
+
+    <div>
+        <button type="button" class="btn btn-success" [routerLink]="['game']" style="margin:2%">New Game</button>
+        <button type="button" class="btn btn-success" [routerLink]="['highscores']" style="margin:2%">Highscores</button>
+    </div>
+</div>
+
+<div class="col"><app-highscores-list></app-highscores-list></div>
+
+
+</div>
 </div>

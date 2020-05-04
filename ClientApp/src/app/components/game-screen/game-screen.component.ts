@@ -57,7 +57,9 @@ export class GameScreenComponent implements OnInit
     this.fieldWidth=this.Scale*this.N;
     this.fieldHeight=this.Scale*this.M;
   }
-
+    
+    this.gameservice.resetScore();
+    
     this.initializeSnake();
     //Once the component has initialized, we’ll have access to the Canvas DOM node, as well
     //as its drawing context:
