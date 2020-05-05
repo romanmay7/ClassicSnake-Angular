@@ -9,6 +9,7 @@ import { TitleScreenComponent } from './components/title-screen/title-screen.com
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HighscoresListComponent } from './components/highscores-list/highscores-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavBarComponent,
     GameScreenComponent,
     TitleScreenComponent,
-    HighscoresListComponent
+    HighscoresListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
