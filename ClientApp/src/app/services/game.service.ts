@@ -10,13 +10,14 @@ import { GlobalVariable } from '../../global';
 export class GameService {
 
   gamescore:number=0;
+  scoresPerApple=10;
   highscores:GameRecord[]
 
   constructor(private router: Router,private http: HttpClient) { }
 
   incrementScore()
   {
-    this.gamescore+=10;
+    this.gamescore+=this.scoresPerApple;
   }
 
   resetScore()

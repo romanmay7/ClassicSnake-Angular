@@ -17,6 +17,8 @@ export class GameScreenComponent implements OnInit
 
   title = 'ClassicSnake-Angular';
   isRunning=true;
+  framesPerSecond = 5;
+  gameSpeed=0;
 
   //Game Screen Dimensions
   N:number;
@@ -134,7 +136,7 @@ export class GameScreenComponent implements OnInit
   animate(graphicsContext:CanvasRenderingContext2D): void 
   {
     
-    let framesPerSecond = 5;
+    
 
      var timeout = setTimeout(()=>{
                 
@@ -146,7 +148,7 @@ export class GameScreenComponent implements OnInit
             else{requestAnimationFrame(()=>(this.animate(graphicsContext)));}
                     
     
-        }, 1000 / framesPerSecond);
+        }, 1000 / this.framesPerSecond);
 
         
   }
@@ -298,7 +300,26 @@ export class GameScreenComponent implements OnInit
     this.ctx.fillRect((this.tailX)*this.Scale,(this.tailY)*this.Scale,this.Scale-1,this.Scale-1);
   }
 
+  toggleGameSpeed() //switch GameSpeed: Normal\Fast
+  {
+    if(this.gameSpeed==0)
+     {
+        this.gameSpeed=1; //Fast
+        this.framesPerSecond=10;
+        this.gameservice.scoresPerApple=20;
+     }
+    else
+    {
+      this.gameSpeed=0; //Normal
+      this.framesPerSecond=5;
+      this.gameservice.scoresPerApple=10;
+    }
+  
+  }
+
 }
+
+
 
 
 export class SnakeChain 
