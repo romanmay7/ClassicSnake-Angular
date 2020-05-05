@@ -10,6 +10,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HighscoresListComponent } from './components/highscores-list/highscores-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { FooterComponent } from './components/footer/footer.component';
     DeviceDetectorModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

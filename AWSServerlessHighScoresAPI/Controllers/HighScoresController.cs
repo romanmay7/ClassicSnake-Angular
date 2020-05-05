@@ -31,10 +31,19 @@ namespace AWSServerlessHighScoresAPI.Controllers
 
         [HttpPost]
         [Route("AddNewRecord")]
-        public async Task<IActionResult> AddNewRecord(GameRecord model)
+        public async Task<IActionResult> AddNewRecord([FromBody]GameRecord model)
         {
             if (ModelState.IsValid)
             {
+                //Generate Unique ID----------------------------------------------------
+                var rfc4122bytes = Convert.FromBase64String("aguidthatIgotonthewire==");
+                Array.Reverse(rfc4122bytes, 0, 4);
+                Array.Reverse(rfc4122bytes, 4, 2);
+                Array.Reverse(rfc4122bytes, 6, 2);
+                var guid = new Guid(rfc4122bytes);
+                //----------------------------------------------------------------------
+                model.Id = guid.ToString(); //assign to model
+
                 await _highscoresService.AddItemToDynamoDB(model);
                 return Ok();
             }

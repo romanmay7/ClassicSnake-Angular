@@ -1,9 +1,15 @@
+import { stringify } from 'querystring';
 
 
 export class GameRecord {
 
-    id: number
-    score: string;
+    score: number;
     playerName: string ;
-    date: Date = null;
+    date: string ;
+
+    constructor (_score: number,_playerName:string,_date:string) {
+      this.score = _score;
+      this.playerName=_playerName;
+      this.date=_date;
+  }
   }

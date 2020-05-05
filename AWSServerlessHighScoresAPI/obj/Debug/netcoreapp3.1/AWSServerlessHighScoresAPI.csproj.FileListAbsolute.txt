@@ -203,3 +203,4 @@ C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScore
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.csproj.CopyComplete
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.dll
 C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.pdb
+C:\Users\Roman Mayerson\source\repos\ClassicSnake-Angular\AWSServerlessHighScoresAPI\obj\Debug\netcoreapp3.1\AWSServerlessHighScoresAPI.csprojAssemblyReference.cache

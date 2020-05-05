@@ -9,6 +9,7 @@ namespace AWSServerlessHighScoresAPI.Models
     [DynamoDBTable("ClassicSnake-HighScores")]
     public class GameRecord
     {
+     
         public string Id { get; set; }
         public int Score { get; set; }
         public string PlayerName { get; set; }
