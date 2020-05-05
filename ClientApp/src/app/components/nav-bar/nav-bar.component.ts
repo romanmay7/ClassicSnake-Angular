@@ -7,8 +7,17 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  isExpanded = false;
 
   constructor(private gameservice:GameService) { }
+
+  collapse() {
+    this.isExpanded = false;
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+  }
 
   ngOnInit() {
   }
